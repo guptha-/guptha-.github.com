@@ -1,0 +1,323 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>VM Automated Tests | Dalvik VM</title>
+<style>
+  td {
+    white-space:pre;
+    font-family:monospace;
+    padding: 3pt;
+  }
+  pre {
+    background-color: #000;
+    color: #fff;
+    padding: 3pt;
+  }
+</style>
+</head>
+<body>
+
+<h2>Tests Failed:</h2>
+<table id="failTable" width="95%" border="1">
+  <tr><td>Test ID</td><td>Expected Output</td><td>Actual Output</td><td>Dalvik Codes Called</td></tr>
+</table>
+
+<h2>Tests Passed:</h2>
+<table id="passTable" width="95%" border="1">
+  <tr><td>Test ID</td><td>Expected Output</td><td>Actual Output</td><td>Dalvik Codes Called</td></tr>
+</table>
+
+<h2>Opcode Usage</h2>
+<table id="usageTable" width="95%" border="1">
+  <tr><td>Native opCode ID</td><td>Native opCode Name</td><td>Files Containing this opCode</td></tr>
+</table>
+
+<h3>Runnable Classes:</h3>
+<table>
+  <tr>
+    <td><select id="runnableClasses" size="6"></select></td>
+    <td>
+      <input type="button" id="runButton" value="Run Class" />
+      <!--<br />
+      command line arguments: <input type="text" id="argv" />-->
+    </td>
+  </tr>
+</table>
+
+<h3>VM Output: <input type="button" id="clearOutputButton" value="Clear" /></h3>
+<!-- I used a pre because I like monospace output. That's it, basically. -->
+<pre id="output"></pre>
+
+
+</body>
+
+<!-- after body so that can append to div "output" -->
+<script src="../src/assert.js"></script>
+<script src="../src/global.js"></script>
+<script src="../src/gLong.js"></script>
+<script src="../src/util.js"></script>
+<script src="../src/bitutil.js"></script>
+<script src="../src/TryRange.js"></script>
+<script src="../src/terminal.js"></script>
+<script src="../src/leb128.js"></script>
+<script src="../src/ArrayFile.js"></script>
+<script src="../src/icodeGen.js"></script>
+<script src="../src/Class.js"></script>
+<script src="../src/Instance.js"></script>
+<script src="../src/Type.js"></script>
+<script src="../src/MethodSignature.js"></script>
+<script src="../src/Method.js"></script>
+<script src="../src/Field.js"></script>
+<script src="../src/AddressTranslator.js"></script>
+<script src="../src/dexLoader.js"></script>
+<script src="../src/Upload.js"></script>
+<script src="../src/ClassChooser.js"></script>
+<script src="../src/invoke.js"></script>
+<script src="../src/icodeExecute.js"></script>
+<script src="../src/Thread.js"></script>
+<script src="../src/ClassLibrary.js"></script>
+<script src="../corelib/worselib.dex.js"></script> <!-- this defines var JavaLibraryDex -->
+<script src="../src/VM.js"></script>
+<script>
+// each .dex.js adds to this map
+var files = {};
+// hackery to avoid dependencies on HTML; redefine Upload class instead of including it
+var Upload = function() { };
+
+// hackery to avoid the default VM constructor; redefine it here and restore prototype afterward
+var VMproto = VM.prototype;
+var VM = function() {
+  var _self = this;
+  this._threads = [];
+  this.classLibrary = new ClassLibrary();
+};
+VM.prototype = VMproto;
+
+// include stdlib
+gStdLib = (new DEXData(new ArrayFile(JavaLibraryDex), true)).classes;
+</script>
+
+<!--
+  INCLUDE NEW TEST CASES HERE:
+-->
+
+<script src="factorial.dex.js"></script>
+<script src="recurse.dex.js"></script>
+<script src="seqSwitch.dex.js"></script>
+<script src="testSeveralMethods.dex.js"></script>
+<script src="bitWise.dex.js"></script>
+<script src="FillArrayRange.dex.js"></script>
+<script src="IntCast.dex.js"></script>
+<script src="ArgumentDirection.dex.js"></script>
+<script src="PrimitiveCast.dex.js"></script>
+<script src="Bird.dex.js"></script>
+<script src="ArrayTest.dex.js"></script>
+<script src="string.dex.js"></script>
+<script src="Monitors.dex.js"></script>
+<script src="InterfaceTest.dex.js"></script>
+<script src="ThreadInstanceTest.dex.js"></script>
+<script src="tryCatch.dex.js"></script>
+<script src="Add_double.dex.js"></script>
+<script src="Add_double_2addr.dex.js"></script>
+<script src="Add_float_2addr.dex.js"></script>
+<script src="Add_float.dex.js"></script>
+<script src="Add_int_2addr.dex.js"></script>
+<script src="Add_int_lit16.dex.js"></script>
+<script src="Add_int_lit8.dex.js"></script>
+<script src="Add_int.dex.js"></script>
+<script src="Add_long_2addr.dex.js"></script>
+<script src="Add_long.dex.js"></script>
+<script src="Aget_boolean.dex.js"></script>
+<script src="Aget_byte.dex.js"></script>
+<script src="Aget_char.dex.js"></script>
+<script src="Aget_object.dex.js"></script>
+<script src="Aget_short.dex.js"></script>
+<script src="Aget_wide.dex.js"></script>
+<script src="Aget.dex.js"></script>
+<script src="And_int_2addr.dex.js"></script>
+<script src="And_int_lit16.dex.js"></script>
+<script src="And_int_lit8.dex.js"></script>
+<script src="And_int.dex.js"></script>
+<script src="And_long_2addr.dex.js"></script>
+<script src="And_long.dex.js"></script>
+<script src="Aput_boolean.dex.js"></script>
+<script src="Aput_byte.dex.js"></script>
+<script src="Aput_char.dex.js"></script>
+<script src="Aput_object.dex.js"></script>
+<script src="Aput_short.dex.js"></script>
+<script src="Aput_wide.dex.js"></script>
+<script src="Aput.dex.js"></script>
+<script src="Array_length.dex.js"></script>
+<script src="Check_cast.dex.js"></script>
+<script src="Cmp_long.dex.js"></script>
+<script src="Cmpg_double.dex.js"></script>
+<script src="Cmpl_double.dex.js"></script>
+<script src="Cmpl_float.dex.js"></script>
+<script src="Cmpg_float.dex.js"></script>
+<script src="Const_16.dex.js"></script>
+<script src="Const_4.dex.js"></script>
+<script src="Const_class.dex.js"></script>
+<script src="Const_high16.dex.js"></script>
+<script src="Const_string.dex.js"></script>
+<script src="Const_string_jumbo.dex.js"></script>
+<script src="Const_wide_16.dex.js"></script>
+<script src="Const_wide_32.dex.js"></script>
+<script src="Const_wide_high16.dex.js"></script>
+<script src="Const_wide.dex.js"></script>
+<script src="Div_double_2addr.dex.js"></script>
+<script src="Div_double.dex.js"></script>
+<script src="Div_float_2addr.dex.js"></script>
+<script src="Div_float.dex.js"></script>
+<script src="Div_int_2addr.dex.js"></script>
+<script src="Div_int.dex.js"></script>
+<script src="Div_int_lit16.dex.js"></script>
+<script src="Div_int_lit8.dex.js"></script>
+<script src="Div_long_2addr.dex.js"></script>
+<script src="Div_long.dex.js"></script>
+<script src="Double_to_float.dex.js"></script>
+<script src="Double_to_int.dex.js"></script>
+<script src="Double_to_long.dex.js"></script>
+<script src="Fill_array_range.dex.js"></script>
+<script src="Fill_array.dex.js"></script>
+<script src="Float_to_double.dex.js"></script>
+<script src="Float_to_int.dex.js"></script>
+<script src="Float_to_long.dex.js"></script>
+<script src="Goto_16.dex.js"></script>
+<script src="Goto_32.dex.js"></script>
+<script src="If_eq.dex.js"></script>
+<script src="If_ge.dex.js"></script>
+<script src="If_gt.dex.js"></script>
+<script src="If_le.dex.js"></script>
+<script src="If_lt.dex.js"></script>
+<script src="If_ne.dex.js"></script>
+<script src="Iget_boolean.dex.js"></script>
+<script src="Iget_byte.dex.js"></script>
+<script src="Iget_char.dex.js"></script>
+<script src="Iget_long.dex.js"></script>
+<script src="Iget_object.dex.js"></script>
+<script src="Iget_short.dex.js"></script>
+<script src="Iget_wide.dex.js"></script>
+<script src="Iget.dex.js"></script>
+<script src="Instance_of.dex.js"></script>
+<script src="Int_to_byte.dex.js"></script>
+<script src="Int_to_char.dex.js"></script>
+<script src="Int_to_double.dex.js"></script>
+<script src="Int_to_long.dex.js"></script>
+<script src="Int_to_short.dex.js"></script>
+<script src="Iput_boolean.dex.js"></script>
+<script src="Iput_byte.dex.js"></script>
+<script src="Iput_char.dex.js"></script>
+<script src="Iput_object.dex.js"></script>
+<script src="Iput_short.dex.js"></script>
+<script src="Iput_wide.dex.js"></script>
+<script src="Iput.dex.js"></script>
+<script src="Long_to_double.dex.js"></script>
+<script src="Long_to_float.dex.js"></script>
+<script src="Long_to_int.dex.js"></script>
+<script src="Monitor_enter.dex.js"></script>
+<script src="Monitor_exit.dex.js"></script>
+<script src="Mul_double_2addr.dex.js"></script>
+<script src="Mul_double.dex.js"></script>
+<script src="Mul_float_2addr.dex.js"></script>
+<script src="Mul_float.dex.js"></script>
+<script src="Mul_int_2addr.dex.js"></script>
+<script src="Mul_int_lit16.dex.js"></script>
+<script src="Mul_int_lit8.dex.js"></script>
+<script src="Mul_int.dex.js"></script>
+<script src="Mul_long_2addr.dex.js"></script>
+<script src="Mul_long.dex.js"></script>
+<script src="Neg_to_double.dex.js"></script>
+<script src="Neg_to_float.dex.js"></script>
+<script src="Neg_to_int.dex.js"></script>
+<script src="Neg_to_long.dex.js"></script>
+<script src="New_array.dex.js"></script>
+<script src="New_instance.dex.js"></script>
+<script src="Nop.dex.js"></script>
+<script src="Not_int.dex.js"></script>
+<script src="Not_long.dex.js"></script>
+<script src="Or_int_2addr.dex.js"></script>
+<script src="Or_int_lit16.dex.js"></script>
+<script src="Or_int_lit8.dex.js"></script>
+<script src="Or_int.dex.js"></script>
+<script src="Or_long_2addr.dex.js"></script>
+<script src="Or_long.dex.js"></script>
+<script src="Packed_switch.dex.js"></script>
+<script src="Rem_double_2addr.dex.js"></script>
+<script src="Rem_double.dex.js"></script>
+<script src="Rem_float_2addr.dex.js"></script>
+<script src="Rem_float.dex.js"></script>
+<script src="Rem_int_2addr.dex.js"></script>
+<script src="Rem_int_lit16.dex.js"></script>
+<script src="Rem_int_lit8.dex.js"></script>
+<script src="Rem_int.dex.js"></script>
+<script src="Rem_long_2addr.dex.js"></script>
+<script src="Rem_long.dex.js"></script>
+<script src="Return_object.dex.js"></script>
+<script src="Return_void.dex.js"></script>
+<script src="Return_wide.dex.js"></script>
+<script src="Rsub_int_lit8.dex.js"></script>
+<script src="Rsub_int.dex.js"></script>
+<script src="Sget_boolean.dex.js"></script>
+<script src="Sget_byte.dex.js"></script><script src="Iput_boolean.dex.js"></script>
+<script src="Iput_byte.dex.js"></script>
+<script src="Iput_char.dex.js"></script>
+<script src="Iput_object.dex.js"></script>
+<script src="Iput_short.dex.js"></script>
+<script src="Iput_wide.dex.js"></script>
+<script src="Iput.dex.js"></script>
+<script src="Sget_char.dex.js"></script>
+<script src="Sget_long.dex.js"></script>
+<script src="Sget_object.dex.js"></script>
+<script src="Sget_short.dex.js"></script>
+<script src="Sget_wide.dex.js"></script>
+<script src="Sget.dex.js"></script>
+<script src="Shl_int_2addr.dex.js"></script>
+<script src="Shl_int_lit8.dex.js"></script>
+<script src="Shl_int.dex.js"></script>
+<script src="Shl_long_2addr.dex.js"></script>
+<script src="Shl_long.dex.js"></script>
+<script src="Shr_int_2addr.dex.js"></script>
+<script src="Shr_int_lit8.dex.js"></script>
+<script src="Shr_int.dex.js"></script>
+<script src="Shr_long_2addr.dex.js"></script>
+<script src="Shr_long.dex.js"></script>
+<script src="Sparse_switch.dex.js"></script>
+<script src="Sput_boolean.dex.js"></script>
+<script src="Sput_byte.dex.js"></script>
+<script src="Sput_char.dex.js"></script>
+<script src="Sput_object.dex.js"></script>
+<script src="Sput_short.dex.js"></script>
+<script src="Sput_wide.dex.js"></script>
+<script src="Sput.dex.js"></script>
+<script src="Sub_double_2addr.dex.js"></script>
+<script src="Sub_double.dex.js"></script>
+<script src="Sub_float_2addr.dex.js"></script>
+<script src="Sub_float.dex.js"></script>
+<script src="Sub_int_2addr.dex.js"></script>
+<script src="Sub_int_lit16.dex.js"></script>
+<script src="Sub_int_lit8.dex.js"></script>
+<script src="Sub_int.dex.js"></script>
+<script src="Sub_long_2addr.dex.js"></script>
+<script src="Sub_long.dex.js"></script>
+<script src="Ushr_int_2addr.dex.js"></script>
+<script src="Ushr_int_lit8.dex.js"></script>
+<script src="Ushr_int.dex.js"></script>
+<script src="Ushr_long_2addr.dex.js"></script>
+<script src="Ushr_long.dex.js"></script>
+<script src="Xor_int_2addr.dex.js"></script>
+<script src="Xor_int_lit16.dex.js"></script>
+<script src="Xor_int_lit8.dex.js"></script>
+<script src="Xor_int.dex.js"></script>
+<script src="Xor_long_2addr.dex.js"></script>
+<script src="Xor_long.dex.js"></script>
+
+
+<!--
+  LAST OF INCLUDED TEST CASES
+-->
+<script src="vmtest.js"></script>
+<script src="tests.js"></script>
+<script src="opSummary.js"></script>
+
+</html>
+
