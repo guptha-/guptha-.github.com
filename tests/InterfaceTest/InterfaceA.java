@@ -1,4 +1,0 @@
-interface InterfaceA {
-    void testInterface();
-}
-
