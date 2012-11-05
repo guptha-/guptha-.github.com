@@ -1,0 +1,217 @@
+Processing 'Thread.dex'...
+Opened 'Thread.dex', DEX version '035'
+Class #0            -
+  Class descriptor  : 'LThreadA;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Thread;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LThreadA;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000210:                                        |[000210] ThreadA.<init>:()V
+000220: 7010 0c00 0000                         |0000: invoke-direct {v0}, Ljava/lang/Thread;.<init>:()V // method@000c
+000226: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LThreadA; 
+
+  Virtual methods   -
+    #0              : (in LThreadA;)
+      name          : 'run'
+      type          : '()V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 13 16-bit code units
+000228:                                        |[000228] ThreadA.run:()V
+000238: 2200 0200                              |0000: new-instance v0, LThreadTest; // type@0002
+00023c: 7010 0700 0000                         |0002: invoke-direct {v0}, LThreadTest;.<init>:()V // method@0007
+000242: 1a00 1100                              |0005: const-string v0, "a1" // string@0011
+000246: 1a01 1200                              |0007: const-string v1, "a2" // string@0012
+00024a: 7120 0900 1000                         |0009: invoke-static {v0, v1}, LThreadTest;.printThings:(Ljava/lang/String;Ljava/lang/String;)V // method@0009
+000250: 0e00                                   |000c: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=4
+        0x0005 line=5
+        0x000c line=6
+      locals        : 
+        0x0000 - 0x000d reg=2 this LThreadA; 
+
+  source_file_idx   : 10 (ThreadA.java)
+
+Class #1            -
+  Class descriptor  : 'LThreadB;'
+  Access flags      : 0x0000 ()
+  Superclass        : 'Ljava/lang/Thread;'
+  Interfaces        -
+  Static fields     -
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LThreadB;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10000 (CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+000254:                                        |[000254] ThreadB.<init>:()V
+000264: 7010 0c00 0000                         |0000: invoke-direct {v0}, Ljava/lang/Thread;.<init>:()V // method@000c
+00026a: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LThreadB; 
+
+  Virtual methods   -
+    #0              : (in LThreadB;)
+      name          : 'run'
+      type          : '()V'
+      access        : 0x0001 (PUBLIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 2
+      insns size    : 13 16-bit code units
+00026c:                                        |[00026c] ThreadB.run:()V
+00027c: 2200 0200                              |0000: new-instance v0, LThreadTest; // type@0002
+000280: 7010 0700 0000                         |0002: invoke-direct {v0}, LThreadTest;.<init>:()V // method@0007
+000286: 1a00 1300                              |0005: const-string v0, "b1" // string@0013
+00028a: 1a01 1400                              |0007: const-string v1, "b2" // string@0014
+00028e: 7120 0900 1000                         |0009: invoke-static {v0, v1}, LThreadTest;.printThings:(Ljava/lang/String;Ljava/lang/String;)V // method@0009
+000294: 0e00                                   |000c: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=8
+        0x0005 line=9
+        0x000c line=10
+      locals        : 
+        0x0000 - 0x000d reg=2 this LThreadB; 
+
+  source_file_idx   : 11 (ThreadB.java)
+
+Class #2            -
+  Class descriptor  : 'LThreadTest;'
+  Access flags      : 0x0001 (PUBLIC)
+  Superclass        : 'Ljava/lang/Object;'
+  Interfaces        -
+  Static fields     -
+    #0              : (in LThreadTest;)
+      name          : 'lock'
+      type          : 'Ljava/lang/Object;'
+      access        : 0x0008 (STATIC)
+  Instance fields   -
+  Direct methods    -
+    #0              : (in LThreadTest;)
+      name          : '<clinit>'
+      type          : '()V'
+      access        : 0x10008 (STATIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 0
+      outs          : 1
+      insns size    : 8 16-bit code units
+000298:                                        |[000298] ThreadTest.<clinit>:()V
+0002a8: 2200 0400                              |0000: new-instance v0, Ljava/lang/Object; // type@0004
+0002ac: 7010 0b00 0000                         |0002: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@000b
+0002b2: 6900 0000                              |0005: sput-object v0, LThreadTest;.lock:Ljava/lang/Object; // field@0000
+0002b6: 0e00                                   |0007: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=2
+      locals        : 
+
+    #1              : (in LThreadTest;)
+      name          : '<init>'
+      type          : '()V'
+      access        : 0x10001 (PUBLIC CONSTRUCTOR)
+      code          -
+      registers     : 1
+      ins           : 1
+      outs          : 1
+      insns size    : 4 16-bit code units
+0002b8:                                        |[0002b8] ThreadTest.<init>:()V
+0002c8: 7010 0b00 0000                         |0000: invoke-direct {v0}, Ljava/lang/Object;.<init>:()V // method@000b
+0002ce: 0e00                                   |0003: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=1
+      locals        : 
+        0x0000 - 0x0004 reg=0 this LThreadTest; 
+
+    #2              : (in LThreadTest;)
+      name          : 'main'
+      type          : '([Ljava/lang/String;)V'
+      access        : 0x0009 (PUBLIC STATIC)
+      code          -
+      registers     : 3
+      ins           : 1
+      outs          : 1
+      insns size    : 17 16-bit code units
+0002d0:                                        |[0002d0] ThreadTest.main:([Ljava/lang/String;)V
+0002e0: 2200 0000                              |0000: new-instance v0, LThreadA; // type@0000
+0002e4: 7010 0000 0000                         |0002: invoke-direct {v0}, LThreadA;.<init>:()V // method@0000
+0002ea: 2201 0100                              |0005: new-instance v1, LThreadB; // type@0001
+0002ee: 7010 0300 0100                         |0007: invoke-direct {v1}, LThreadB;.<init>:()V // method@0003
+0002f4: 6e10 0200 0000                         |000a: invoke-virtual {v0}, LThreadA;.start:()V // method@0002
+0002fa: 6e10 0500 0100                         |000d: invoke-virtual {v1}, LThreadB;.start:()V // method@0005
+000300: 0e00                                   |0010: return-void
+      catches       : (none)
+      positions     : 
+        0x0000 line=4
+        0x0005 line=5
+        0x000a line=6
+        0x000d line=7
+        0x0010 line=8
+      locals        : 
+
+    #3              : (in LThreadTest;)
+      name          : 'printThings'
+      type          : '(Ljava/lang/String;Ljava/lang/String;)V'
+      access        : 0x20008 (STATIC DECLARED_SYNCHRONIZED)
+      code          -
+      registers     : 4
+      ins           : 2
+      outs          : 2
+      insns size    : 18 16-bit code units
+000304:                                        |[000304] ThreadTest.printThings:(Ljava/lang/String;Ljava/lang/String;)V
+000314: 1c01 0200                              |0000: const-class v1, LThreadTest; // type@0002
+000318: 1d01                                   |0002: monitor-enter v1
+00031a: 6200 0100                              |0003: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+00031e: 6e20 0a00 2000                         |0005: invoke-virtual {v0, v2}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000a
+000324: 6200 0100                              |0008: sget-object v0, Ljava/lang/System;.out:Ljava/io/PrintStream; // field@0001
+000328: 6e20 0a00 3000                         |000a: invoke-virtual {v0, v3}, Ljava/io/PrintStream;.println:(Ljava/lang/String;)V // method@000a
+00032e: 1e01                                   |000d: monitor-exit v1
+000330: 0e00                                   |000e: return-void
+000332: 0d00                                   |000f: move-exception v0
+000334: 1e01                                   |0010: monitor-exit v1
+000336: 2700                                   |0011: throw v0
+      catches       : 1
+        0x0003 - 0x000d
+          <any> -> 0x000f
+      positions     : 
+        0x0000 line=10
+        0x0008 line=11
+        0x000d line=12
+        0x000f line=10
+      locals        : 
+
+  Virtual methods   -
+  source_file_idx   : 12 (ThreadTest.java)
+

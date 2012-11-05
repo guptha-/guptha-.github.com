@@ -1,0 +1,4 @@
+javac ThreadTest.java ThreadA.java ThreadB.java
+dx --dex --output Thread.dex ThreadTest.class ThreadA.class ThreadB.class
+dexdump -d Thread.dex > Thread.dump
+
